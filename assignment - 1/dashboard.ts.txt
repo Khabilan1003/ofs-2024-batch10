@@ -1,0 +1,172 @@
+/**
+ * @license
+ * Copyright (c) 2014, 2024, Oracle and/or its affiliates.
+ * Licensed under The Universal Permissive License (UPL), Version 1.0
+ * as shown at https://oss.oracle.com/licenses/upl/
+ * @ignore
+ */
+import * as AccUtils from "../accUtils";
+
+import * as Bootstrap from 'ojs/ojbootstrap';
+import { whenDocumentReady } from 'ojs/ojbootstrap';
+import ArrayDataProvider = require('ojs/ojarraydataprovider');
+import * as ko from "knockout";
+import 'ojs/ojknockout';
+import 'ojs/ojinputtext';
+import 'ojs/ojinputnumber';
+import 'oj-c/form-layout';
+import 'ojs/ojvalidation-base';
+import 'oj-c/input-date-text';
+import 'ojs/ojknockout';
+import 'oj-c/button';
+import 'oj-c/input-text';
+import 'oj-c/radioset';
+import 'oj-c/checkbox';
+import 'oj-c/checkboxset';
+import 'oj-c/select-single';
+import "oj-c/input-date-text";
+import 'oj-c/form-layout';
+
+const experienceArray = [
+  { value: 'lessthanone', label: 'Less than 1 year' },
+  { value: 'onefive', label: 'Between 1 and 5 years' },
+  { value: 'fiveten', label: 'Between 5 and 10 years' },
+  { value: 'tenfifteen', label: 'Between 10 and 15 Years' },
+  { value: 'fifteentwenty', label: 'Between 15 and 20 Years' },
+  { value: 'more20', label: 'More than 20 Years' }
+];
+
+const statesArray = [
+  { value: 'AL', label: 'AL' },
+  { value: 'AK', label: 'AK' },
+  { value: 'AR', label: 'AR' },
+  { value: 'AZ', label: 'AZ' },
+  { value: 'CA', label: 'CA' },
+  { value: 'CO', label: 'CO' },
+  { value: 'CT', label: 'CT' },
+  { value: 'DC', label: 'DC' },
+  { value: 'DE', label: 'DE' },
+  { value: 'FL', label: 'FL' },
+  { value: 'GA', label: 'GA' },
+  { value: 'HI', label: 'HI' },
+  { value: 'IA', label: 'IA' },
+  { value: 'ID', label: 'ID' },
+  { value: 'IL', label: 'IL' },
+  { value: 'IN', label: 'IN' },
+  { value: 'KS', label: 'KS' },
+  { value: 'KY', label: 'KY' },
+  { value: 'LA', label: 'LA' },
+  { value: 'MA', label: 'MA' },
+  { value: 'MD', label: 'MD' },
+  { value: 'ME', label: 'ME' },
+  { value: 'MI', label: 'MI' },
+  { value: 'MN', label: 'MN' },
+  { value: 'MO', label: 'MO' },
+  { value: 'MS', label: 'MS' },
+  { value: 'MT', label: 'MT' },
+  { value: 'NC', label: 'NC' },
+  { value: 'NE', label: 'NE' },
+  { value: 'NH', label: 'NH' },
+  { value: 'NJ', label: 'NJ' },
+  { value: 'NM', label: 'NM' },
+  { value: 'NV', label: 'NV' },
+  { value: 'NY', label: 'NY' },
+  { value: 'ND', label: 'ND' },
+  { value: 'OH', label: 'OH' },
+  { value: 'OK', label: 'OK' },
+  { value: 'OR', label: 'OR' },
+  { value: 'PA', label: 'PA' },
+  { value: 'RI', label: 'RI' },
+  { value: 'SC', label: 'SC' },
+  { value: 'SD', label: 'SD' },
+  { value: 'TN', label: 'TN' },
+  { value: 'TX', label: 'TX' },
+  { value: 'UT', label: 'UT' },
+  { value: 'VT', label: 'VT' },
+  { value: 'VA', label: 'VA' },
+  { value: 'WA', label: 'WA' },
+  { value: 'WI', label: 'WI' },
+  { value: 'WV', label: 'WV' },
+  { value: 'WY', label: 'WY' }
+];
+
+const jobTypeArray = [
+  { value: 'ns', label: 'Not Specified' },
+  { value: 'regular', label: 'Regular Employee' },
+  { value: 'temporary', label: 'Temporary Employee' },
+  { value: 'student', label: 'Student/Intern' },
+  { value: 'contractor', label: 'Contractor' }
+];
+
+const employmentArray = [
+  { value: 'yes', label: 'Yes, I am authorized' },
+  { value: 'no', label: 'No, I am not authorized' }
+];
+
+const sponsorshipArray = [
+  { value: 'yes', label: 'Yes' },
+  { value: 'no', label: 'No' }
+];
+
+const sponsorshipTypesArray = [
+  { value: 'H-1B', label: 'H-1B' },
+  { value: 'L-1B', label: 'L-1B' },
+  { value: 'O-1', label: 'O-1' },
+  { value: 'TN', label: 'TN' }
+];
+
+class DashboardViewModel {
+  sendVal: ko.ObservableArray<string>;
+  agreeVal: ko.ObservableArray<string>;
+  sponsorshipVal: ko.Observable<string>;
+  sponsorshipTypeVal: ko.Observable<string>;
+  employmentVal: ko.Observable<string | undefined>;
+  stateVal: ko.Observable<string | undefined>;
+  expVal: ko.Observable<string | undefined>;
+  jobType: ko.ObservableArray<string>;
+  sponsorshipTypeDisabled: ko.Observable<boolean>;
+  dob: ko.Observable<string>;
+
+  constructor() {
+    this.sendVal = ko.observableArray(['']);
+    this.agreeVal = ko.observableArray(['']);
+    this.sponsorshipVal = ko.observable('');
+    this.sponsorshipTypeVal = ko.observable('');
+    this.employmentVal = ko.observable();
+    this.stateVal = ko.observable();
+    this.expVal = ko.observable();
+    this.jobType = ko.observableArray(['regular']);
+    this.sponsorshipTypeDisabled = ko.observable(true);
+    this.dob = ko.observable('2023-04-27');
+  }
+
+  buttonClick = () => {
+    alert('Button is not functional, demo is to show layout only');
+  };
+
+  readonly expDP = new ArrayDataProvider(experienceArray, {
+    keyAttributes: 'value'
+  });
+
+  readonly statesDP = new ArrayDataProvider(statesArray, {
+    keyAttributes: 'value'
+  });
+
+  readonly jobTypeDP = new ArrayDataProvider(jobTypeArray, {
+    keyAttributes: 'value'
+  });
+
+  readonly employmentDP = new ArrayDataProvider(employmentArray, {
+    keyAttributes: 'value'
+  });
+
+  readonly sponsorshipDP = new ArrayDataProvider(sponsorshipArray, {
+    keyAttributes: 'value'
+  });
+
+  readonly sponsorshipTypesDP = new ArrayDataProvider(sponsorshipTypesArray, {
+    keyAttributes: 'value'
+  });
+}
+
+export = DashboardViewModel;

@@ -1,0 +1,84 @@
+<!--
+ Copyright (c) 2014, 2024, Oracle and/or its affiliates.
+ Licensed under The Universal Permissive License (UPL), Version 1.0
+ as shown at https://oss.oracle.com/licenses/upl/
+ -->
+ <div id="sampleDemo" class="demo-padding demo-container">
+    <div id="componentDemoContent">
+  
+      <div id="form-container">
+        <h1 class="oj-typography-heading-xs">Profile Information</h1>
+        <h2 class="oj-typography-subheading-xs">Personal Information</h2>
+        <oj-c-form-layout id="personal-information" direction="row" max-columns="2">
+          <oj-c-input-text id="firstname" label-hint="First Name" required="true" value=""></oj-c-input-text>
+          <oj-c-input-text id="lastname" label-hint="Last Name" required="true" value=""></oj-c-input-text>
+          <oj-c-input-text id="address" label-hint="Address" autocomplete="off" value=""></oj-c-input-text>
+          <oj-c-form-layout direction="row" columns="2">
+            <oj-c-select-single id="state" label-hint="State" value="{{stateVal}}" data="[[statesDP]]" item-text="label"
+              required="true"></oj-c-select-single>
+            <oj-c-input-text id="zip" label-hint="Zip" value=""></oj-c-input-text>
+          </oj-c-form-layout>
+          <oj-c-input-text id="email" label-hint="Email" value=""></oj-c-input-text>
+          <oj-c-input-date-text label-hint="Date" id="date" class="oj-form-control-max-width-md"
+            value="{{dob}}"></oj-c-input-date-text>
+        </oj-c-form-layout>
+        <h1 class="oj-typography-heading-xs">Employment</h1>
+        <h2 class="oj-typography-subheading-xs">Employment Eligibility</h2>
+        <oj-c-form-layout id="employment-eligibility" direction="row" max-columns="2">
+          <oj-c-radioset label-hint="Are you authorized to work in the United States?" id="work-authorization"
+            value="{{employmentVal}}" options="[[employmentDP]]">
+          </oj-c-radioset>
+        </oj-c-form-layout>
+  
+        <h2 class="oj-typography-subheading-xs">Employment Preferences and Conditions</h2>
+        <oj-c-form-layout id="employment-preferences" direction="row" max-columns="2">
+          <oj-c-input-text id="job-title" label-hint="Job Title" value=""></oj-c-input-text>
+          <oj-c-form-layout direction="row" columns="2">
+            <oj-c-select-single id="experience" label-hint="Experience" data="[[expDP]]" item-text="label"
+              value="{{expVal}}"></oj-c-select-single>
+            <oj-c-input-text id="shift" label-hint="Shift" value=""></oj-c-input-text>
+          </oj-c-form-layout>
+          <oj-c-checkboxset id="job-type" label-hint="Job Type" options="[[jobTypeDP]]"
+            value="[[jobType]]"></oj-c-checkboxset>
+        </oj-c-form-layout>
+  
+        <h2 class="oj-typography-subheading-xs">Employment History</h2>
+        <p>List employment starting with your most recent position.</p>
+        <oj-c-form-layout id="employment-history" direction="row" max-columns="2">
+          <oj-c-input-text id="employer" label-hint="Employer Name" value=""></oj-c-input-text>
+          <oj-c-input-text id="position" label-hint="Position/Job Title" value=""></oj-c-input-text>
+          <oj-c-form-layout direction="row" columns="2">
+            <oj-c-input-date-text id="start-date" label-hint="Start Date" autocomplete="off"></oj-c-input-date-text>
+            <oj-c-input-date-text id="end-date" label-hint="End Date" autocomplete="off"></oj-c-input-date-text>
+          </oj-c-form-layout>
+          <oj-c-input-text id="reference" label-hint="Contact Reference" value=""></oj-c-input-text>
+          <oj-c-text-area id="description" column-span="2" label-hint="Description" rows="6" value=""></oj-c-text-area>
+          <oj-c-input-text id="empAddress" column-span="2" label-hint="Employer Address" value=""></oj-c-input-text>
+        </oj-c-form-layout>
+        <oj-c-button id="add" on-oj-action="[[buttonClick]]" label="Add More">
+        </oj-c-button>
+  
+        <h1 class="oj-typography-heading-xs">Data Privacy</h1>
+        <oj-c-form-layout id="data-privacy" direction="row">
+          <oj-c-checkbox id="app-details" required="true">
+            I agree my application details may be stored in the Oracle Global Recruiting database for 24
+            months.
+          </oj-c-checkbox>
+        </oj-c-form-layout>
+  
+        <h2 class="oj-typography-subheading-xs">Job Posting Notification</h2>
+        <oj-c-form-layout id="job-posting" direction="row">
+          <oj-c-checkbox id="notification">
+            Send an email notification whenever a new position matching this profile is posted.
+          </oj-c-checkbox>
+        </oj-c-form-layout>
+        <oj-c-button id="save" chroming="outlined" on-oj-action="[[buttonClick]]" label="Save Draft">
+        </oj-c-button>
+        <oj-c-button id="continue" chroming="callToAction" on-oj-action="[[buttonClick]]" label="Continue">
+        </oj-c-button>
+      </div>
+  
+  
+  
+    </div>
+  </div>
